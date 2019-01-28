@@ -1,2 +1,2 @@
-insert into APARTMENT values(1, '1', 'Volli', 'Trolli');
-insert into APARTMENT values(2, '2', 'Kalle', 'Käsna');
+insert into APARTMENT values(1, '$2a$10$YqzJ3rQrOI2GGiCaCjI9Y.EsrTE5kH7AKVRdYooH1t2FRbByzzWm.', FALSE, '1', 'Volli', 'Trolli');
+insert into APARTMENT values(2, '$2a$10$YqzJ3rQrOI2GGiCaCjI9Y.EsrTE5kH7AKVRdYooH1t2FRbByzzWm.', TRUE, '2', 'Kalle', 'Käsna');

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import ee.water.service.ApartmentService;
 
 @Controller
-@RequestMapping("/test")
+@RequestMapping("")
 public class Test {
 
   @Autowired
@@ -17,6 +17,12 @@ public class Test {
 
   @RequestMapping(value = "", method = RequestMethod.GET)
   public String test(Model model) {
+    model.addAttribute("apartments", apartmentService.getApartments());
+    return "test";
+  }
+
+  @RequestMapping(value = "/summary", method = RequestMethod.GET)
+  public String summary(Model model) {
     model.addAttribute("apartments", apartmentService.getApartments());
     return "test";
   }

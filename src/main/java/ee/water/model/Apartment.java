@@ -13,6 +13,8 @@ public class Apartment {
   private String number;
   private String residentFirstName;
   private String residentSurname;
+  private boolean managerialRights;
+  private String encodedPass;
 
   public int getId() {
     return id;
@@ -44,5 +46,21 @@ public class Apartment {
 
   public void setResidentSurname(String residentSurname) {
     this.residentSurname = residentSurname;
+  }
+
+  public boolean hasManagerialRights() {
+    return managerialRights;
+  }
+
+  public void setManagerialRights(boolean managerialRights) {
+    this.managerialRights = managerialRights;
+  }
+
+  public String getEncodedPass() {
+    return encodedPass;
+  }
+
+  public void setEncodedPass(String encodedPass) {
+    this.encodedPass = encodedPass;
   }
 }
