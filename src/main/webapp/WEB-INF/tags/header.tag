@@ -54,15 +54,5 @@
                 </div>
             </nav>
         </header>
-
-
-        <%--<p class="text-left">--%>
-        <%--<a href="${pageContext.request.contextPath}/logout"--%>
-        <%--class="btn btn-danger btn-sm"><spring:message code="header.logout"/></a>--%>
-        <%--</p>--%>
-        <%--<p class="text-right">--%>
-        <%--<a href="${pageContext.request.contextPath}/logout"--%>
-        <%--class="btn btn-danger btn-sm"><spring:message code="header.logout"/></a>--%>
-        <%--</p>--%>
     </c:if>
 </head>

@@ -1,8 +1,12 @@
 package ee.water.model;
 
+import java.util.List;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Apartment {
@@ -10,11 +14,14 @@ public class Apartment {
   @Id
   @GeneratedValue
   private int id;
+  @Column(nullable = false, unique = true)
   private String number;
   private String residentFirstName;
   private String residentSurname;
   private boolean managerialRights;
   private String encodedPass;
+  @OneToMany
+  private List<Measurement> measurements;
 
   public int getId() {
     return id;
@@ -62,5 +69,13 @@ public class Apartment {
 
   public void setEncodedPass(String encodedPass) {
     this.encodedPass = encodedPass;
+  }
+
+  public List<Measurement> getMeasurements() {
+    return measurements;
+  }
+
+  public void setMeasurements(List<Measurement> measurements) {
+    this.measurements = measurements;
   }
 }
