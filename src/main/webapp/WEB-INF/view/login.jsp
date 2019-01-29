@@ -26,6 +26,7 @@
             <div class="form-group">
                 <input name="password" type="password" class="form-control"
                        placeholder="<spring:message code="login.password"/>"/>
+                <span style="color:gray"><spring:message code="login.password.info"/></span>
             </div>
 
             <div class="form-group">

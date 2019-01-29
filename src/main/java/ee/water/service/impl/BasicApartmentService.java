@@ -22,4 +22,9 @@ public class BasicApartmentService implements ApartmentService {
     apartmentRepository.findAll().forEach(apartments::add);
     return apartments;
   }
+
+  @Override
+  public Apartment getApartment(String apartmentNumber) {
+    return apartmentRepository.findByNumber(apartmentNumber);
+  }
 }

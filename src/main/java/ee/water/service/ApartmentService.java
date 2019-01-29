@@ -8,4 +8,6 @@ public interface ApartmentService {
 
   List<Apartment> getApartments();
 
+  Apartment getApartment(String apartmentNumber);
+
 }
