@@ -22,13 +22,16 @@
                 <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a href="${pageContext.request.contextPath}/logout"
-                               class="nav-link"><spring:message code="header.insert.measurements"/></a>
+                            <a href="${pageContext.request.contextPath}/"
+                               class="nav-link"><spring:message
+                                    code="header.insert.measurements"/></a>
                         </li>
-                        <li class="nav-item">
-                            <a href="${pageContext.request.contextPath}/logout"
-                               class="nav-link"><spring:message code="header.view.summary"/></a>
-                        </li>
+                        <c:if test="${hasManagerialRights}">
+                            <li class="nav-item">
+                                <a href="${pageContext.request.contextPath}/summary"
+                                   class="nav-link"><spring:message code="header.view.summary"/></a>
+                            </li>
+                        </c:if>
                     </ul>
                 </div>
                 <div class="mx-auto order-0">

@@ -20,12 +20,16 @@ public class Measurements {
 
   @RequestMapping(value = "", method = RequestMethod.GET)
   public String openMonthlyMeasurement(Model model) throws Exception {
-    model.addAttribute("apartment", getLoggedInApartment());
+    Apartment loggedInApartment = getLoggedInApartment();
+    model.addAttribute("apartment", loggedInApartment);
+    model.addAttribute("hasManagerialRights", loggedInApartment.hasManagerialRights());
     return "monthlyMeasurement";
   }
 
   @RequestMapping(value = "/summary", method = RequestMethod.GET)
-  public String openSummary(Model model) {
+  public String openSummary(Model model) throws Exception {
+    Apartment loggedInApartment = getLoggedInApartment();
+    model.addAttribute("hasManagerialRights", loggedInApartment.hasManagerialRights());
     model.addAttribute("apartments", apartmentService.getApartments());
     return "summary";
   }
