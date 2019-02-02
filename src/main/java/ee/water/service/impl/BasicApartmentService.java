@@ -19,7 +19,7 @@ public class BasicApartmentService implements ApartmentService {
   @Override
   public List<Apartment> getApartments() {
     List<Apartment> apartments = new ArrayList<>();
-    apartmentRepository.findAll().forEach(apartments::add);
+    apartmentRepository.findAll().forEach(e -> apartments.add(e));
     return apartments;
   }
 

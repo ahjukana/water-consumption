@@ -13,7 +13,7 @@
     <title><spring:message code="${title}"/></title>
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
-    <script src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/jquery-3.3.1.js"></script>
     <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 
     <c:if test="${showHeader}">
@@ -26,7 +26,7 @@
                                class="nav-link"><spring:message
                                     code="header.insert.measurements"/></a>
                         </li>
-                        <c:if test="${hasManagerialRights}">
+                        <c:if test="${apartment.hasManagerialRights()}">
                             <li class="nav-item">
                                 <a href="${pageContext.request.contextPath}/summary"
                                    class="nav-link"><spring:message code="header.view.summary"/></a>
