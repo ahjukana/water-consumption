@@ -23,5 +23,3 @@ insert into APARTMENT values(22, '$2a$10$YqzJ3rQrOI2GGiCaCjI9Y.EsrTE5kH7AKVRdYoo
 insert into APARTMENT values(23, '$2a$10$YqzJ3rQrOI2GGiCaCjI9Y.EsrTE5kH7AKVRdYooH1t2FRbByzzWm.', TRUE, '23', 'Daffy', 'Flanders');
 insert into APARTMENT values(24, '$2a$10$YqzJ3rQrOI2GGiCaCjI9Y.EsrTE5kH7AKVRdYooH1t2FRbByzzWm.', FALSE, '24', 'Mickey', 'Duck');
 insert into APARTMENT values(25, '$2a$10$YqzJ3rQrOI2GGiCaCjI9Y.EsrTE5kH7AKVRdYooH1t2FRbByzzWm.', FALSE, '25', 'Ned', 'Doo');
-
--- insert into MEASUREMENT values('2018')

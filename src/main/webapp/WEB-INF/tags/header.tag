@@ -13,6 +13,7 @@
     <title><spring:message code="${title}"/></title>
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/custom.css">
     <script src="${pageContext.request.contextPath}/js/jquery-3.3.1.js"></script>
     <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 
