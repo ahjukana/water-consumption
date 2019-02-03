@@ -11,13 +11,17 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import ee.water.helper.CalendarTimeFormat;
+import ee.water.validation.MeasurementValuesValidatable;
+import ee.water.validation.annotation.CompareWithPreviousMeasurement;
 
 @Entity
-public class Measurement {
+@CompareWithPreviousMeasurement
+public class Measurement implements MeasurementValuesValidatable {
 
   @Id
   @GeneratedValue
@@ -28,9 +32,16 @@ public class Measurement {
   @JoinColumn(name = "APARTMENT_ID", nullable = false)
   private Apartment apartment;
 
+  @NotNull(message = "fieldError.required")
   private Double coldKitchen;
+
+  @NotNull(message = "fieldError.required")
   private Double hotKitchen;
+
+  @NotNull(message = "fieldError.required")
   private Double coldBathroom;
+
+  @NotNull(message = "fieldError.required")
   private Double hotBathroom;
 
   @Temporal(TemporalType.DATE)
@@ -58,6 +69,7 @@ public class Measurement {
     this.apartment = apartment;
   }
 
+  @Override
   public Double getColdKitchen() {
     return coldKitchen;
   }
@@ -66,6 +78,7 @@ public class Measurement {
     this.coldKitchen = coldKitchen;
   }
 
+  @Override
   public Double getHotKitchen() {
     return hotKitchen;
   }
@@ -74,6 +87,7 @@ public class Measurement {
     this.hotKitchen = hotKitchen;
   }
 
+  @Override
   public Double getColdBathroom() {
     return coldBathroom;
   }
@@ -82,6 +96,7 @@ public class Measurement {
     this.coldBathroom = coldBathroom;
   }
 
+  @Override
   public Double getHotBathroom() {
     return hotBathroom;
   }

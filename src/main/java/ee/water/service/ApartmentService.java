@@ -10,4 +10,6 @@ public interface ApartmentService {
 
   Apartment getApartment(String apartmentNumber);
 
+  Apartment getLoggedInApartment() throws Exception;
+
 }

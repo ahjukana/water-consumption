@@ -9,8 +9,7 @@
 <water:header showHeader="true"/>
 <body>
 <div class="container-fluid">
-    <form:form modelAttribute="newMeasurement" method="POST"
-               action="${pageContext.request.contextPath}/saveMeasurement">
+    <form:form modelAttribute="newMeasurement" id="newMeasurementForm">
         <h3>
             <spring:message code="add.measurement.apartment.prefix"/> ${apartment.number}
             <br>${apartment.residentFirstName} ${apartment.residentSurname}
@@ -47,8 +46,8 @@
             <label for="hotKitchen" class="col-sm-2 control-label">
                 <spring:message code="add.measurement.hot.kithcen"/>
             </label>
-            <form:input type="text" maxlength="20" class="form-control" id="hotKitchen"
-                        path="hotKitchen"/>
+            <form:input type="text" class="form-control" id="hotKitchen" path="hotKitchen"/>
+            <div id="hotKitchenErrorText" style="display: none" class="text-danger"></div>
             <div class="calculated" id="calcHotKitchen"></div>
         </div>
 
@@ -56,8 +55,8 @@
             <label for="coldKitchen" class="col-sm-2 control-label">
                 <spring:message code="add.measurement.cold.kithen"/>
             </label>
-            <form:input type="text" maxlength="20" class="form-control" id="coldKitchen"
-                        path="coldKitchen"/>
+            <form:input type="text" class="form-control" id="coldKitchen" path="coldKitchen"/>
+            <div id="coldKitchenErrorText" style="display: none" class="text-danger"></div>
             <div class="calculated" id="calcColdKitchen"></div>
         </div>
 
@@ -65,8 +64,8 @@
             <label for="hotBathroom" class="col-sm-2 control-label">
                 <spring:message code="add.measurement.hot.bathroom"/>
             </label>
-            <form:input type="text" maxlength="20" class="form-control" id="hotBathroom"
-                        path="hotBathroom"/>
+            <form:input type="text" class="form-control" id="hotBathroom" path="hotBathroom"/>
+            <div id="hotBathroomErrorText" style="display: none" class="text-danger"></div>
             <div class="calculated" id="calcHotBathroom"></div>
         </div>
 
@@ -74,13 +73,14 @@
             <label for="coldBathroom" class="col-sm-2 control-label">
                 <spring:message code="add.measurement.cold.bathroom"/>
             </label>
-            <form:input type="text" maxlength="20" class="form-control" id="coldBathroom"
-                        path="coldBathroom"/>
+            <form:input type="text" class="form-control" id="coldBathroom" path="coldBathroom"/>
+            <div id="coldBathroomErrorText" style="display: none" class="text-danger"></div>
             <div class="calculated" id="calcColdBathroom"></div>
         </div>
 
         <div class="col-md-6 form-group form-inline">
-            <button type="submit" id="submit" class="btn btn-primary disabled">
+            <button type="button" id="submit" class="btn btn-primary"
+                    onclick="validateAndSubmitForm();">
                 <spring:message code="add.measurement.submit"/>
             </button>
             <div class="calculated" id="calcHot"></div>
@@ -89,7 +89,9 @@
         </div>
 
         <div id="newerInfo" style="display:none">
-            <span style="color:red"><spring:message code="add.measurement.has.newer"/></span>
+            <span style="color:red">
+                <spring:message code="add.measurement.has.newer"/>
+            </span>
         </div>
     </form:form>
 </div>
@@ -125,25 +127,37 @@
     var coldWaterConsumption = coldKitchenConsumption + coldBathroomConsumption;
     var totalWaterConsumption = hotWaterConsumption + coldWaterConsumption;
 
-    $("#calcHotKitchen").html(hotKitchenConsumption);
-    $("#calcColdKitchen").html(coldKitchenConsumption);
-    $("#calcHotBathroom").html(hotBathroomConsumption);
-    $("#calcColdBathroom").html(coldBathroomConsumption);
+    if (!isNaN(hotKitchenConsumption)) {
+      $("#calcHotKitchen").html(hotKitchenConsumption.toFixed(3));
+    }
+    if (!isNaN(coldKitchenConsumption)) {
+      $("#calcColdKitchen").html(coldKitchenConsumption.toFixed(3));
+    }
+    if (!isNaN(hotBathroomConsumption)) {
+      $("#calcHotBathroom").html(hotBathroomConsumption.toFixed(3));
+    }
+    if (!isNaN(coldBathroomConsumption)) {
+      $("#calcColdBathroom").html(coldBathroomConsumption.toFixed(3));
+    }
 
     if (!isNaN(hotWaterConsumption)) {
-      $("#calcHot").html("<spring:message code="add.measurement.hot.total"/> " + hotWaterConsumption);
+      $("#calcHot").html(
+          "<spring:message code="add.measurement.hot.total"/> " + hotWaterConsumption.toFixed(3));
     } else {
       $("#calcHot").html("");
     }
 
     if (!isNaN(coldWaterConsumption)) {
-      $("#calcCold").html("<spring:message code="add.measurement.cold.total"/> " + coldWaterConsumption);
+      $("#calcCold").html(
+          "<spring:message code="add.measurement.cold.total"/> " + coldWaterConsumption.toFixed(
+          3));
     } else {
       $("#calcCold").html("");
     }
 
     if (!isNaN(totalWaterConsumption)) {
-      $("#calcTotal").html("<spring:message code="add.measurement.total"/> " + totalWaterConsumption);
+      $("#calcTotal").html(
+          "<spring:message code="add.measurement.total"/> " + totalWaterConsumption.toFixed(3));
     } else {
       $("#calcTotal").html("");
     }
@@ -213,6 +227,53 @@
       }
     });
   }
+
+  function validateAndSubmitForm() {
+    var isFormValid = validateAndShowErrors();
+    if (isFormValid) {
+      submitForm();
+    }
+  }
+
+  function validateAndShowErrors() {
+    //  TODO
+    return true;
+  }
+
+  function submitForm() {
+    $.ajax({
+      type: "POST",
+      url: "${pageContext.request.contextPath}/saveMeasurement",
+      data: $("#newMeasurementForm").serialize(),
+      success: function (response) {
+        clearErrors();
+
+        if (response.hasErrors) {
+          $.each(response.errorFieldList, function (index, value) {
+            var field = response.errorFieldList[index].field.toString();
+            var message = response.errorFieldList[index].message.toString();
+
+            addErrorToInput(field, message);
+          });
+
+        } else {
+          window.location.href = "${pageContext.request.contextPath}" + response.url;
+        }
+      }
+    });
+  }
+
+  function clearErrors() {
+    $("input").removeClass("is-invalid");
+    $(".text-danger").css("display", "none");
+  }
+
+  function addErrorToInput(field, text) {
+    var id = "#" + field;
+    $(id).addClass("is-invalid");
+    $(id + "ErrorText").html(text).css("display", "block");
+  }
+
 
 </script>
 </html>
