@@ -3,8 +3,6 @@ package ee.water.validation;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ee.water.model.Measurement;
@@ -14,8 +12,6 @@ import ee.water.validation.annotation.CompareWithPreviousMeasurement;
 
 public class MeasurementConstraintValidator implements
     ConstraintValidator<CompareWithPreviousMeasurement, MeasurementValuesValidatable> {
-
-  private Logger logger = LoggerFactory.getLogger(MeasurementConstraintValidator.class);
 
   @Autowired
   private MeasurementService measurementService;
@@ -44,7 +40,6 @@ public class MeasurementConstraintValidator implements
       lastApartmentMeasurement = measurementService.getLastApartmentMeasurement(
           apartmentService.getLoggedInApartment().getNumber());
     } catch (Exception e) {
-      logger.error("error getting last apartment measurement", e);
       return true;
     }
     if (lastApartmentMeasurement == null) {

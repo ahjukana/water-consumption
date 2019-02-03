@@ -98,6 +98,10 @@
 </body>
 <script type="text/javascript">
   var INPUT_SELECTORS = "#hotKitchen, #coldKitchen, #hotBathroom, #coldBathroom";
+  var lastHotKitchen = parseFloat("${lastMeasurement.hotKitchen}");
+  var lastColdKitchen = parseFloat("${lastMeasurement.coldKitchen}");
+  var lastHotBathroom = parseFloat("${lastMeasurement.hotBathroom}");
+  var lastColdBathroom = parseFloat("${lastMeasurement.coldBathroom}");
 
   $(document).ready(function () {
     updateData();
@@ -109,11 +113,6 @@
   });
 
   function updateConsumption() {
-    var lastHotKitchen = parseFloat("${lastMeasurement.hotKitchen}");
-    var lastColdKitchen = parseFloat("${lastMeasurement.coldKitchen}");
-    var lastHotBathroom = parseFloat("${lastMeasurement.hotBathroom}");
-    var lastColdBathroom = parseFloat("${lastMeasurement.coldBathroom}");
-
     var currentHotKitchen = parseFloat($("#hotKitchen").val());
     var currentColdKitchen = parseFloat($("#coldKitchen").val());
     var currentHotBathroom = parseFloat($("#hotBathroom").val());
@@ -229,6 +228,7 @@
   }
 
   function validateAndSubmitForm() {
+    clearErrors();
     var isFormValid = validateAndShowErrors();
     if (isFormValid) {
       submitForm();
@@ -236,8 +236,30 @@
   }
 
   function validateAndShowErrors() {
-    //  TODO
-    return true;
+    var isFormValid = true;
+
+    var isHotKitchenValid = validateNumberNotEmpty("#hotKitchen");
+    var isColdKitchenValid = validateNumberNotEmpty("#coldKitchen");
+    var isHotBathroomValid = validateNumberNotEmpty("#hotBathroom");
+    var isColdBathroomValid = validateNumberNotEmpty("#coldBathroom");
+
+    if (!isHotKitchenValid || !isColdKitchenValid || !isHotBathroomValid || !isColdBathroomValid) {
+      isFormValid = false;
+    }
+    return isFormValid;
+  }
+
+  function validateNumberNotEmpty(selector) {
+    var message = "<spring:message code="fieldError.number.required"/>";
+    var valid = true;
+    var value = $(selector).val();
+    var validMinLength = value.length >= 0;
+    var isNumber = $.isNumeric(value) && value > 0;
+    if (value === "" || !validMinLength || !isNumber) {
+      addErrorToInput(selector, message);
+      valid = false;
+    }
+    return valid;
   }
 
   function submitForm() {
@@ -253,7 +275,7 @@
             var field = response.errorFieldList[index].field.toString();
             var message = response.errorFieldList[index].message.toString();
 
-            addErrorToInput(field, message);
+            addErrorToInput("#" + field, message);
           });
 
         } else {
@@ -268,10 +290,9 @@
     $(".text-danger").css("display", "none");
   }
 
-  function addErrorToInput(field, text) {
-    var id = "#" + field;
-    $(id).addClass("is-invalid");
-    $(id + "ErrorText").html(text).css("display", "block");
+  function addErrorToInput(selector, text) {
+    $(selector).addClass("is-invalid");
+    $(selector + "ErrorText").html(text).css("display", "block");
   }
 
 
