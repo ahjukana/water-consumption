@@ -11,7 +11,7 @@
 <div class="container-fluid">
     <form:form method="POST" action="${pageContext.request.contextPath}/login">
         <h2><spring:message code="login.header"/></h2>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
             <div class="form-group">
                 <label>
                     <select name="username" class="form-control">

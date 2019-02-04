@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import ee.water.model.Apartment;
@@ -31,12 +29,8 @@ public class BasicApartmentService implements ApartmentService {
   }
 
   @Override
-  public Apartment getLoggedInApartment() throws Exception {
-    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    if (principal instanceof UserDetails) {
-      String apartmentNumber = ((UserDetails) principal).getUsername();
-      return getApartment(apartmentNumber);
-    }
-    throw new Exception("Logged in apartment not found");
+  public void saveApartment(Apartment apartment) {
+    apartmentRepository.save(apartment);
   }
+
 }

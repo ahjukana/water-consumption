@@ -28,6 +28,7 @@ import ee.water.model.ErrorField;
 import ee.water.model.Measurement;
 import ee.water.service.ApartmentService;
 import ee.water.service.MeasurementService;
+import ee.water.service.UserService;
 
 @Controller
 @RequestMapping("")
@@ -44,9 +45,12 @@ public class Measurements {
   @Autowired
   private MessageSource messageSource;
 
+  @Autowired
+  private UserService userService;
+
   @RequestMapping(value = "", method = RequestMethod.GET)
   public String openMonthlyMeasurement(Model model) throws Exception {
-    Apartment loggedInApartment = apartmentService.getLoggedInApartment();
+    Apartment loggedInApartment = userService.getLoggedInApartment();
     Measurement lastMeasurement = measurementService.getLastApartmentMeasurement(
         loggedInApartment.getNumber());
     boolean currentMonthInserted = isCurrentMonthMeasurementAdded(lastMeasurement);
@@ -63,7 +67,7 @@ public class Measurements {
   @ResponseBody
   public Measurement getMeasurement(@RequestParam int selectedYear,
       @RequestParam int selectedMonth) throws Exception {
-    return measurementService.getMeasurement(apartmentService.getLoggedInApartment().getNumber(),
+    return measurementService.getMeasurement(userService.getLoggedInApartment().getNumber(),
         new CalendarTimeFormat().parseToCalendar(selectedYear, selectedMonth));
   }
 
@@ -85,7 +89,7 @@ public class Measurements {
 
     if (errorFieldList.isEmpty()) {
       newMeasurement.calculateCalendarTime();
-      newMeasurement.setApartment(apartmentService.getLoggedInApartment());
+      newMeasurement.setApartment(userService.getLoggedInApartment());
       measurementService.saveMeasurement(newMeasurement);
 
       map.put("hasErrors", false);
@@ -100,7 +104,7 @@ public class Measurements {
   @RequestMapping(value = "/summary", method = RequestMethod.GET)
   public String openSummary(@RequestParam int year, @RequestParam int month, Model model)
       throws Exception {
-    model.addAttribute("apartment", apartmentService.getLoggedInApartment());
+    model.addAttribute("apartment", userService.getLoggedInApartment());
     model.addAttribute("dropdownYears", getActiveYears());
     model.addAttribute("report", getPeriodReport(year,month));
     return "summary";

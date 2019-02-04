@@ -44,7 +44,7 @@
                 <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a href="${pageContext.request.contextPath}/logout"
+                            <a href="${pageContext.request.contextPath}/changePassword"
                                class="nav-link"><spring:message code="header.change.pass"/></a>
                         </li>
                         <li class="nav-item">

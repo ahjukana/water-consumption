@@ -6,8 +6,8 @@ import javax.validation.ConstraintValidatorContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ee.water.model.Measurement;
-import ee.water.service.ApartmentService;
 import ee.water.service.MeasurementService;
+import ee.water.service.UserService;
 import ee.water.validation.annotation.CompareWithPreviousMeasurement;
 
 public class MeasurementConstraintValidator implements
@@ -17,7 +17,7 @@ public class MeasurementConstraintValidator implements
   private MeasurementService measurementService;
 
   @Autowired
-  private ApartmentService apartmentService;
+  private UserService userService;
 
   private String coldKitchenFieldName;
   private String hotKitchenFieldName;
@@ -38,7 +38,7 @@ public class MeasurementConstraintValidator implements
     Measurement lastApartmentMeasurement;
     try {
       lastApartmentMeasurement = measurementService.getLastApartmentMeasurement(
-          apartmentService.getLoggedInApartment().getNumber());
+          userService.getLoggedInApartment().getNumber());
     } catch (Exception e) {
       return true;
     }
