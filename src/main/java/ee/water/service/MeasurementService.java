@@ -11,8 +11,6 @@ public interface MeasurementService {
 
   Measurement getMeasurement(String apartmentNumber, Calendar date);
 
-  // Map<String, Measurement> getMeasurementsForDate(Calendar date);
-
   List<Measurement> getMeasurementsForDate(Calendar date);
 
   void saveMeasurement(Measurement measurement);

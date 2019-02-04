@@ -106,7 +106,7 @@ public class Measurements {
       throws Exception {
     model.addAttribute("apartment", userService.getLoggedInApartment());
     model.addAttribute("dropdownYears", getActiveYears());
-    model.addAttribute("report", getPeriodReport(year,month));
+    model.addAttribute("report", getPeriodReport(year, month));
     return "summary";
   }
 

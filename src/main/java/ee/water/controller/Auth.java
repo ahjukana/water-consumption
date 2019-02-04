@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,7 +44,8 @@ public class Auth {
 
   @RequestMapping(value = "/changePassword", method = RequestMethod.POST)
   @ResponseBody
-  public Map<String, Object> changeUserPassword(@RequestParam String newPass, @RequestParam String oldPass)
+  public Map<String, Object> changeUserPassword(@RequestParam String newPass,
+      @RequestParam String oldPass)
       throws Exception {
     Map<String, Object> map = new HashMap<>();
     if (!userService.validateOldPassword(oldPass)) {
