@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import ee.water.helper.CalendarTimeFormat;
 import ee.water.model.Apartment;
+import ee.water.model.ApartmentPeriodSummary;
 import ee.water.model.ErrorField;
 import ee.water.model.Measurement;
 import ee.water.service.ApartmentService;
@@ -97,9 +98,11 @@ public class Measurements {
   }
 
   @RequestMapping(value = "/summary", method = RequestMethod.GET)
-  public String openSummary(Model model) throws Exception {
+  public String openSummary(@RequestParam int year, @RequestParam int month, Model model)
+      throws Exception {
     model.addAttribute("apartment", apartmentService.getLoggedInApartment());
-    model.addAttribute("apartments", apartmentService.getApartments());
+    model.addAttribute("dropdownYears", getActiveYears());
+    model.addAttribute("report", getPeriodReport(year,month));
     return "summary";
   }
 
@@ -120,6 +123,27 @@ public class Measurements {
       years.add(i);
     }
     return years;
+  }
+
+  private List<ApartmentPeriodSummary> getPeriodReport(int year, int month) {
+    Calendar calendar = new CalendarTimeFormat().parseToCalendar(year, month);
+    List<Measurement> measurements = measurementService.getMeasurementsForDate(calendar);
+    List<ApartmentPeriodSummary> report = new ArrayList<>();
+    for (int i = 1; i <= 25; i++) {
+      String num = Integer.toString(i);
+      boolean hasMeasurement = false;
+      ApartmentPeriodSummary summary = new ApartmentPeriodSummary();
+      summary.setApartmentNumber(num);
+      for (Measurement measurement : measurements) {
+        if (num.equals(measurement.getApartment().getNumber())) {
+          hasMeasurement = true;
+          summary.setMeasurement(measurement);
+        }
+      }
+      summary.setMeasurementsMissing(hasMeasurement);
+      report.add(summary);
+    }
+    return report;
   }
 
 }

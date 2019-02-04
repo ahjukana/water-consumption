@@ -29,7 +29,7 @@
                         </li>
                         <c:if test="${apartment.hasManagerialRights()}">
                             <li class="nav-item">
-                                <a href="${pageContext.request.contextPath}/summary"
+                                <a href="${pageContext.request.contextPath}/summary?year=2018&month=1"
                                    class="nav-link"><spring:message code="header.view.summary"/></a>
                             </li>
                         </c:if>

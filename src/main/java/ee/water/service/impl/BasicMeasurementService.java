@@ -44,6 +44,11 @@ public class BasicMeasurementService implements MeasurementService {
   }
 
   @Override
+  public List<Measurement> getMeasurementsForDate(Calendar date) {
+    return measurementRepository.findByDate(date);
+  }
+
+  @Override
   public void saveMeasurement(Measurement measurement) {
     measurementRepository.save(measurement);
   }

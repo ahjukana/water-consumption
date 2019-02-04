@@ -1,5 +1,7 @@
 package ee.water.model;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Calendar;
 
 import javax.persistence.Entity;
@@ -136,5 +138,25 @@ public class Measurement implements MeasurementValuesValidatable {
 
   public void setMonth(int month) {
     this.month = month;
+  }
+
+  public Double getHotWater() {
+    return round(Double.sum(hotBathroom, hotKitchen));
+  }
+
+  public Double getColdWater() {
+    return round(Double.sum(coldBathroom, coldKitchen));
+  }
+
+  public Double getTotalWater() {
+    double hot = Double.sum(hotBathroom, hotKitchen);
+    double cold = Double.sum(coldBathroom, coldKitchen);
+    return round(Double.sum(hot, cold));
+  }
+
+  private double round(double value) {
+    BigDecimal bd = new BigDecimal(Double.toString(value));
+    bd = bd.setScale(3, RoundingMode.HALF_UP);
+    return bd.doubleValue();
   }
 }

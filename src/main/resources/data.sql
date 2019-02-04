@@ -23,3 +23,22 @@ insert into APARTMENT values(22, '$2a$10$YqzJ3rQrOI2GGiCaCjI9Y.EsrTE5kH7AKVRdYoo
 insert into APARTMENT values(23, '$2a$10$YqzJ3rQrOI2GGiCaCjI9Y.EsrTE5kH7AKVRdYooH1t2FRbByzzWm.', TRUE, '23', 'Daffy', 'Flanders');
 insert into APARTMENT values(24, '$2a$10$YqzJ3rQrOI2GGiCaCjI9Y.EsrTE5kH7AKVRdYooH1t2FRbByzzWm.', FALSE, '24', 'Mickey', 'Duck');
 insert into APARTMENT values(25, '$2a$10$YqzJ3rQrOI2GGiCaCjI9Y.EsrTE5kH7AKVRdYooH1t2FRbByzzWm.', FALSE, '25', 'Ned', 'Doo');
+
+insert into MEASUREMENT values(100001, 2.234, 1.2, '2018-01-01', 1.232, 4.22, 1);
+insert into MEASUREMENT values(100002, 4.234, 5.2, '2018-02-01', 7.232, 5.22, 1);
+insert into MEASUREMENT values(100003, 5.534, 5.243, '2018-03-01', 8.882, 9.22, 1);
+insert into MEASUREMENT values(100004, 5.234, 5.2, '2018-01-01', 2.232, 4.22, 2);
+insert into MEASUREMENT values(100005, 4.234, 5.2, '2018-01-01', 7.232, 4.22, 3);
+insert into MEASUREMENT values(100006, 5.534, 5.243, '2018-01-01', 8.882, 8.22, 4);
+insert into MEASUREMENT values(100007, 43.534, 55.23, '2018-01-01', 34.882, 2.22, 6);
+insert into MEASUREMENT values(100008, 5.534, 5.243, '2018-01-01', 8.882, 8.22, 7);
+insert into MEASUREMENT values(100009, 4.534, 33.23, '2018-01-01', 355.882, 233.22, 9);
+insert into MEASUREMENT values(1000010, 4.534, 33.23, '2018-01-01', 355.882, 233.22, 10);
+insert into MEASUREMENT values(1000061, 43.534, 55.23, '2018-01-01', 34.882, 2.22, 11);
+insert into MEASUREMENT values(1000062, 5.534, 5.243, '2018-01-01', 8.882, 8.22, 12);
+insert into MEASUREMENT values(1000063, 4.534, 33.23, '2018-01-01', 355.882, 233.22, 13);
+insert into MEASUREMENT values(1000064, 4.534, 33.23, '2018-01-01', 355.882, 233.22, 16);
+insert into MEASUREMENT values(1000065, 5.534, 5.243, '2018-01-01', 8.882, 8.22, 17);
+insert into MEASUREMENT values(1000066, 43.534, 55.23, '2018-01-01', 34.882, 2.22, 23);
+insert into MEASUREMENT values(1000067, 4.534, 33.23, '2018-01-01', 355.882, 233.22, 24);
+insert into MEASUREMENT values(1000068, 4.534, 33.23, '2018-01-01', 355.882, 233.22, 25);
