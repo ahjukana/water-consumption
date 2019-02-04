@@ -36,6 +36,7 @@
 </div>
 
 <div class="container-fluid">
+    <h2><spring:message code="months.${param.month}"/> <c:out value="${param.year}"/></h2>
     <table class="table table-bordered table-striped col-md-6">
         <thead>
         <tr>
